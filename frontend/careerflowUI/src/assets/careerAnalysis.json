@@ -1,0 +1,95 @@
+{
+  "career_name": "school teacher",
+  "country": "india",
+  "current_year": 2025,
+  "top_skills_with_weightage": [
+    {
+      "skill": "Classroom Management",
+      "weightage": 25
+    },
+    {
+      "skill": "Lesson Planning & Curriculum Design",
+      "weightage": 20
+    },
+    {
+      "skill": "Communication & Interpersonal Skills",
+      "weightage": 20
+    },
+    {
+      "skill": "Subject Matter Expertise",
+      "weightage": 20
+    },
+    {
+      "skill": "Educational Technology Integration",
+      "weightage": 15
+    }
+  ],
+  "skills_acquisition_time_months": 24,
+  "average_salary_growth": {
+    "2020": 360000,
+    "2021": 380000,
+    "2022": 400000,
+    "2023": 420000,
+    "2024": 450000
+  },
+  "job_openings_estimate": {
+    "2025": 100000
+  },
+  "future_demand_growth_percentage": 15,
+  "geographic_opportunities": [
+    "New Delhi",
+    "Bengaluru",
+    "Mumbai",
+    "Chennai",
+    "Hyderabad"
+  ],
+  "recommended_certifications": [
+    {
+      "name": "Central Teacher Eligibility Test (CTET)",
+      "url": "https://ctet.nic.in/"
+    },
+    {
+      "name": "State Teacher Eligibility Test (TET)",
+      "url": "https://www.tet-exam.in/state-wise-tet-exams/"
+    },
+    {
+      "name": "Bachelor of Education (B.Ed)",
+      "url": "https://www.ugc.ac.in/"
+    }
+  ],
+  "education_level_requirement": "Bachelor's Degree in Education (B.Ed)",
+  "learning_resources_distribution": {
+    "online": 40,
+    "offline": 55,
+    "bootcamps": 5
+  },
+  "work_life_balance_score": 4,
+  "remote_vs_office_ratio": {
+    "remote": 5,
+    "office": 95
+  },
+  "company_size_distribution": {
+    "startup": 10,
+    "mid_size": 40,
+    "enterprise": 50
+  },
+  "automation_risk_percentage": 10,
+  "career_diversity_options": [
+    "School Principal",
+    "Curriculum Developer",
+    "Educational Counselor",
+    "Academic Coordinator",
+    "Corporate Trainer"
+  ],
+  "emerging_tools_and_tech": [
+    "AI-driven grading tools",
+    "Learning Management Systems (LMS)",
+    "Virtual and Augmented Reality (VR/AR)",
+    "Adaptive Learning Platforms",
+    "Learning Analytics Dashboards"
+  ],
+  "global_vs_local_demand_split": {
+    "global": 20,
+    "local": 80
+  }
+}
