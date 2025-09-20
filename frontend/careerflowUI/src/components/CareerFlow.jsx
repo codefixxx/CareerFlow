@@ -41,8 +41,8 @@ function CareerFlowInner({ careerData, onNodeSelect, onCanvasClick }) {
             ...n,
             data: {
               ...n.data,
-              
-              onSelect: () => onNodeSelect(n,nodes), // notify parent
+
+              onSelect: () => onNodeSelect(n, nodes), // notify parent
             },
           }))}
           onPaneClick={onCanvasClick}
@@ -54,12 +54,12 @@ function CareerFlowInner({ careerData, onNodeSelect, onCanvasClick }) {
           elementsSelectable
           zoomOnDoubleClick={false}
           fitView={true}
-          
+
           minZoom={0.2}
           maxZoom={2}
           proOptions={{ hideAttribution: true }}
           className="w-full h-full"
-          // ✅ detect background click
+        // ✅ detect background click
         >
           <Background
             className="bg-slate-300 dark:bg-slate-700"
@@ -67,7 +67,7 @@ function CareerFlowInner({ careerData, onNodeSelect, onCanvasClick }) {
             gap={12}
             size={1}
           />
-          <Controls style={{marginBottom:30}} />
+          <Controls style={{ marginBottom: 30 }} />
         </ReactFlow>
       </div>
     </div>

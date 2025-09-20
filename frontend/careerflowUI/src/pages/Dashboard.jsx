@@ -16,28 +16,28 @@ export default function Dashboard() {
   const [activeIndex, setActiveIndex] = useState(0);
   const location = useLocation();
   const { careerAnalysis } = location.state || {};
-  if (!careerAnalysis) {return <p>No careerAnalysis data available</p>}
+  if (!careerAnalysis) { return <p>No careerAnalysis data available</p> }
   // Data transformations
-const salaryGrowthData = Object.entries(careerAnalysis.average_salary_growth).map(
-  ([year, salary]) => ({ year, salary: Number(salary) })
-);
+  const salaryGrowthData = Object.entries(careerAnalysis.average_salary_growth).map(
+    ([year, salary]) => ({ year, salary: Number(salary) })
+  );
 
-const learningData = Object.entries(careerAnalysis.learning_resources_distribution).map(
-  ([k, v]) => ({ name: k, value: Number(v) })
-);
+  const learningData = Object.entries(careerAnalysis.learning_resources_distribution).map(
+    ([k, v]) => ({ name: k, value: Number(v) })
+  );
 
-const remoteData = Object.entries(careerAnalysis.remote_vs_office_ratio).map(
-  ([k, v]) => ({ name: k, value: Number(v) })
-);
+  const remoteData = Object.entries(careerAnalysis.remote_vs_office_ratio).map(
+    ([k, v]) => ({ name: k, value: Number(v) })
+  );
 
-const companySizeData = Object.entries(careerAnalysis.company_size_distribution).map(
-  ([k, v]) => ({ name: k, value: Number(v) })
-);
+  const companySizeData = Object.entries(careerAnalysis.company_size_distribution).map(
+    ([k, v]) => ({ name: k, value: Number(v) })
+  );
 
-const skillsData = careerAnalysis.top_skills_with_weightage.map((s) => ({
-  ...s,
-  weightage: Number(s.weightage),
-}));
+  const skillsData = careerAnalysis.top_skills_with_weightage.map((s) => ({
+    ...s,
+    weightage: Number(s.weightage),
+  }));
 
 
 
@@ -62,7 +62,7 @@ const skillsData = careerAnalysis.top_skills_with_weightage.map((s) => ({
         {/* Header */}
         <header className="text-center my-8">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-500 dark:text-blue-400">
-            Career Dashboard: {careerAnalysis.career_name} 
+            Career Dashboard: {careerAnalysis.career_name}
           </h1>
         </header>
 

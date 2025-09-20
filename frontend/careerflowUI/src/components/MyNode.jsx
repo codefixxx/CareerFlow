@@ -2,7 +2,7 @@ import React from "react";
 import { Handle, Position } from "reactflow";
 
 export default function MyNode({ data }) {
-  
+
   const isRootNode = data.parentId === null; // root node has no parentId
 
   return (
@@ -18,7 +18,7 @@ export default function MyNode({ data }) {
 
       {/* Connection handles */}
       <Handle type="target" position={Position.Top} isConnectable={false} />
-      <Handle type="source" position={Position.Bottom} isConnectable={false}/>
+      <Handle type="source" position={Position.Bottom} isConnectable={false} />
     </div>
   );
 }

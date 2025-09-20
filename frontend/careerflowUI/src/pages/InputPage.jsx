@@ -22,8 +22,8 @@ const InputPage = () => {
       const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/prompt`, { skills, country });
       console.log("Backend response:", res.data);
       setLoading(false);
-      
-      navigate("/flow", { state: { careerData: res.data.tree,country } });
+
+      navigate("/flow", { state: { careerData: res.data.tree, country } });
     } catch (err) {
       setLoading(false);
       if (err.response) {
@@ -38,21 +38,21 @@ const InputPage = () => {
       }
     }
   };
-if (loading) {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
-      <div className="text-center">
-        {/* Spinner */}
-        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+        <div className="text-center">
+          {/* Spinner */}
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
 
-        {/* Text */}
-        <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
-          Generating your career flow...
-        </p>
+          {/* Text */}
+          <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
+            Generating your career flow...
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
 
   return (
@@ -75,8 +75,8 @@ if (loading) {
         onClick={handleFinalSubmit}
         disabled={!skills.length || !country}
         className={`px-6 py-3 rounded-lg shadow-md transition ${!skills.length || !country
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-green-600 hover:bg-green-700 text-white"
+          ? "bg-gray-400 cursor-not-allowed"
+          : "bg-green-600 hover:bg-green-700 text-white"
           }`}
       >
         Submit

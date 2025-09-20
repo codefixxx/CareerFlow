@@ -1,6 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
-import axios from "axios"; 
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ export default function Sidebar({ selectedNode, onClose, country }) {
   const { label, description, skills, trends } = selectedNode.data;
   const isLayer1 = selectedNode.isLayer1;
   const [loading, setLoading] = useState(false);
-  
+
   const handleClick = async () => {
     try {
       setLoading(true);
@@ -27,7 +27,7 @@ export default function Sidebar({ selectedNode, onClose, country }) {
 
       console.log("Analytics data received:", data);
       setLoading(false);
-       navigate("/dashboard", { state: { careerAnalysis: data.data } });
+      navigate("/dashboard", { state: { careerAnalysis: data.data } });
     } catch (error) {
       setLoading(false);
       console.error("Failed to fetch analytics:", error);
@@ -35,20 +35,20 @@ export default function Sidebar({ selectedNode, onClose, country }) {
     }
   };
   if (loading) {
-  return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
-      <div className="text-center">
-        {/* Spinner */}
-        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+        <div className="text-center">
+          {/* Spinner */}
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
 
-        {/* Text */}
-        <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
-          Fetching analytics data...
-        </p>
+          {/* Text */}
+          <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
+            Fetching analytics data...
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
   return (
     <div
       className="md:w-100 sm:w-full bg-gray-100 dark:bg-gray-800 p-4 border-l border-gray-300 dark:border-gray-600

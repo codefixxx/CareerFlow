@@ -4,21 +4,31 @@
 @import "tw-animate-css";
 
 
-@theme {  --font-Inter: "Inter", sans-serif;
- --font-Poppins: "Poppins", sans-serif;}
+@theme {
+  --font-Inter: "Inter", sans-serif;
+  --font-Poppins: "Poppins", sans-serif;
+}
 
-html,body {
-   overflow: auto;
+html,
+body {
+  overflow: auto;
   scrollbar-width: none;
-  -ms-overflow-style: none;  
+  -ms-overflow-style: none;
   scroll-behavior: smooth;
- 
-  
+
+
   font-family: var(--font-Inter);
 }
-h1, h2, h3, h4, h5, h6 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-Poppins);
 }
+
 @keyframes dash {
   to {
     stroke-dashoffset: -10;
@@ -33,9 +43,11 @@ h1, h2, h3, h4, h5, h6 {
   transition: transform 0.2s ease;
   cursor: pointer;
 }
+
 .recharts-legend-item:hover {
   transform: scale(1.05);
 }
+
 .recharts-sector:focus {
   outline: none;
 }
