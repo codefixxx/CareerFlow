@@ -5,6 +5,7 @@ import skillsData from "../assets/skills.json";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 const InputPage = () => {
   const [skills, setSkills] = useState([]);
   const [country, setCountry] = useState("");
@@ -18,7 +19,7 @@ const InputPage = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:5000/api/prompt", { skills, country });
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/prompt`, { skills, country });
       console.log("Backend response:", res.data);
       setLoading(false);
       

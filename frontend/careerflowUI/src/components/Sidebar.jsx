@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+
+
 export default function Sidebar({ selectedNode, onClose, country }) {
   if (!selectedNode) return null; // Hide completely if no node
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ export default function Sidebar({ selectedNode, onClose, country }) {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:5000/api/analytics",
+        `${process.env.REACT_APP_BACKEND_URL}/api/analytics`,
         {
           job_name: selectedNode.data.label,
           country // 👈 now also sending country
