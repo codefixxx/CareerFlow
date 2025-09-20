@@ -13,12 +13,12 @@ export default function Sidebar({ selectedNode, onClose, country }) {
   const { label, description, skills, trends } = selectedNode.data;
   const isLayer1 = selectedNode.isLayer1;
   const [loading, setLoading] = useState(false);
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const handleClick = async () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/analytics`,
+        `${backendUrl}/api/analytics`,
         {
           job_name: selectedNode.data.label,
           country // 👈 now also sending country

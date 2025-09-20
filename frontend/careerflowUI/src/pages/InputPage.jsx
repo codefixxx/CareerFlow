@@ -11,6 +11,7 @@ const InputPage = () => {
   const [country, setCountry] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
   const handleFinalSubmit = async () => {
@@ -19,7 +20,7 @@ const InputPage = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/prompt`, { skills, country });
+      const res = await axios.post(`${backendUrl}/api/prompt`, { skills, country });
       console.log("Backend response:", res.data);
       setLoading(false);
 
