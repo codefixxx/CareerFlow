@@ -1,3 +1,5 @@
+import { scrollToSection } from "../utils/helpers";
+
 function Hero() {
   // In a real file, you would add:
   // import { scrollToSection } from '../../utils/helpers';

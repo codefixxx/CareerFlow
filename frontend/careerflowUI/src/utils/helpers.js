@@ -1,5 +1,5 @@
 export const scrollToSection = (e, id) => {
-  e.preventDefault();p
+  e.preventDefault();
 
   if (id === 'top') {
     window.scrollTo({
