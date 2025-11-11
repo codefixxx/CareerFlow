@@ -1,107 +1,111 @@
-import React from "react";
-import { X } from "lucide-react";
+import React, { useState } from "react";
+import { X, TrendingUp, Brain, ChevronRight } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
-
+import FullPageLoaders from "./FullPageLoaders";
 
 export default function Sidebar({ selectedNode, onClose, country }) {
-  if (!selectedNode) return null; // Hide completely if no node
+  if (!selectedNode) return null;
   const navigate = useNavigate();
-  console.log(" Selected Node in Sidebar:", selectedNode);
   const { label, description, skills, trends } = selectedNode.data;
   const isLayer1 = selectedNode.isLayer1;
   const [loading, setLoading] = useState(false);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const handleClick = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `${backendUrl}/api/analytics`,
-        {
-          job_name: selectedNode.data.label,
-          country // 👈 now also sending country
-        }
-      );
-
-      console.log("Analytics data received:", data);
+      const { data } = await axios.post(`${backendUrl}/api/analytics`, {
+        job_name: selectedNode.data.label,
+        country,
+      });
       setLoading(false);
       navigate("/dashboard", { state: { careerAnalysis: data.data } });
     } catch (error) {
       setLoading(false);
-      console.error("Failed to fetch analytics:", error);
-      if (error.response) console.error("Server responded with:", error.response.data);
+      console.error("Analytics fetch failed:", error);
     }
   };
-  if (loading) {
-    return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
-        <div className="text-center">
-          {/* Spinner */}
-          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
 
-          {/* Text */}
-          <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
-            Fetching analytics data...
-          </p>
-        </div>
-      </div>
-    );
-  }
+  if (loading) return <FullPageLoaders message="fetching analytics..." />;
+
   return (
     <div
-      className="md:w-100 sm:w-full bg-gray-100 dark:bg-gray-800 p-4 border-l border-gray-300 dark:border-gray-600
-      shadow-md relative"
-      onClick={(e) => e.stopPropagation()} // prevent canvas click collapse
+      className="md:w-[28rem] sm:w-full bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 
+      dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 
+      p-6 border-l border-gray-300 dark:border-gray-700 shadow-2xl relative z-[9999] overflow-y-auto"
+      onClick={(e) => e.stopPropagation()}
     >
       {/* Close Button */}
       <button
         onClick={onClose}
-        className="absolute top-2 right-2 text-gray-600 hover:text-black dark:hover:text-white"
+        className="absolute top-4 right-4 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
       >
-        <X size={20} />
+        <X size={22} />
       </button>
-      <div className="flex flex-col flex-grow overflow-hidden
-       text-black dark:text-white">
-        <h2 className="text-lg font-bold mb-2">{label}</h2>
-        {description && <p className="mb-2 text-sm">{description}</p>}
 
-        {skills?.length > 0 && (
-          <>
-            <h3 className="font-semibold mt-2">Skills Required:</h3>
-            <ul className="list-disc list-inside text-sm">
-              {skills.map((s, i) => (
-                <li key={i}>{s}</li>
-              ))}
-            </ul>
-          </>
+      {/* Header Section */}
+      <div className="flex flex-col flex-grow text-gray-900 dark:text-white mt-2">
+        <h2 className="text-2xl font-bold mb-2">{label}</h2>
+        {description && (
+          <p className="text-sm leading-relaxed mb-4 text-gray-700 dark:text-gray-300">
+            {description}
+          </p>
         )}
 
-        {trends?.length > 0 && (
-          <>
-            <h3 className="font-semibold mt-2">Future Trends:</h3>
-            <ul className="list-disc list-inside text-sm">
-              {trends.map((t, i) => (
-                <li key={i}>{t}</li>
+        {/* Skills Section */}
+        {skills?.length > 0 && (
+          <div className="mb-6 bg-white/60 dark:bg-gray-800/60 rounded-2xl p-4 shadow-md backdrop-blur-sm transition-all hover:shadow-lg">
+            <div className="flex items-center mb-2">
+              <Brain className="text-blue-600 dark:text-blue-400 mr-2" size={18} />
+              <h3 className="font-semibold text-lg">Skills Required</h3>
+            </div>
+            <ul className="list-none space-y-2 text-sm text-gray-700 dark:text-gray-300">
+              {skills.map((s, i) => (
+                <li key={i} className="flex items-start">
+                  <ChevronRight size={14} className="mt-[2px] mr-1 text-blue-500" />
+                  {s}
+                </li>
               ))}
             </ul>
-          </>
+          </div>
+        )}
+
+        {/* Trends Section */}
+        {trends?.length > 0 && (
+          <div className="mb-6 bg-white/60 dark:bg-gray-800/60 rounded-2xl p-4 shadow-md backdrop-blur-sm transition-all hover:shadow-lg">
+            <div className="flex items-center mb-2">
+              <TrendingUp className="text-green-600 dark:text-green-400 mr-2" size={18} />
+              <h3 className="font-semibold text-lg">Future Trends</h3>
+            </div>
+            <ul className="list-none space-y-2 text-sm text-gray-700 dark:text-gray-300">
+              {trends.map((t, i) => (
+                <li key={i} className="flex items-start">
+                  <ChevronRight size={14} className="mt-[2px] mr-1 text-green-500" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </div>
-      {isLayer1 && (<div className="mt-4 text-center text-black dark:text-white">
-        <p className="mb-2">Click to view analytics</p>
-        <button onClick={handleClick}
-          className="px-6 py-2 rounded-xl bg-blue-600 text-white font-semibold 
-               shadow-md hover:bg-blue-700 active:scale-95 
-               transition-transform duration-200"
-        >
-          View Analytics
-        </button>
-      </div>)}
+
+      {/* CTA Button */}
+      {isLayer1 && (
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-800 dark:text-gray-300 mb-2">
+            Click to view analytics
+          </p>
+          <button
+            onClick={handleClick}
+            className="px-6 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 
+            text-white font-semibold shadow-md hover:shadow-lg 
+            transition-all duration-300 active:scale-95"
+          >
+            View Analytics
+          </button>
+        </div>
+      )}
     </div>
   );
 }
-
-
-

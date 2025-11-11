@@ -26,7 +26,7 @@ export const runPrompt = async (req, res) => {
     country = country.trim();
     const skillsKey = skills.join(", ");
     //  Check cache
-    const existing = await CareerPath.findOne({ skillsKey, country });
+    const existing = await CareerPath.findOne({ skillsKey });
     if (existing) {
       console.log(" Returning cached response from MongoDB");
       return res.json({ success: true, id: existing._id, tree: existing.tree });
@@ -34,9 +34,9 @@ export const runPrompt = async (req, res) => {
 
     //  Build prompt
     const careerPrompt = new PromptTemplate({
-      inputVariables: ["country", "skills"],
+      inputVariables: ["skills"],
       template: `
-You are an AI career advisor. The user will provide their country and their list of skills.  
+You are an AI career advisor. The user will provide their list of skills.  
 Your task is to generate a **career path tree** in JSON format.  
 
 🔑 Rules for JSON structure:
@@ -64,10 +64,10 @@ Your task is to generate a **career path tree** in JSON format.  
 Now, generate the career path tree for this user:  
 
 Skills: {skills}  
-Country: {country}
+
 `,
     });
-const formattedPrompt = careerPrompt.format({ skills, country });
+const formattedPrompt = careerPrompt.format({ skills });
 
 const chain = careerPrompt.pipe(model).pipe(new StringOutputParser());
 
@@ -94,7 +94,6 @@ const formattedOutput = rawOutput.trim().replace(/```json|```/g, "");
     const entry = await CareerPath.create({
       skills,
       skillsKey,
-      country,
       tree: jsonResponse,
     });
 

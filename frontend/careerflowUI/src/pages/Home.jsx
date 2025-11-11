@@ -1,9 +1,26 @@
-import React from 'react'
+import React from 'react';
+import Hero from '../components/Hero';
+import VideoDemo from '../components/VideoDemo';
+import Features from '../components/Features';
+import Pricing from '../components/Pricing';
+import About from '../components/About';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
 
-const Home = () => {
+
+function Home() {
+
+  
   return (
-    <div>Home</div>
-  )
+    <main>
+      <Hero />
+      <VideoDemo />
+      <Features />
+      <Pricing />
+      <About />
+      <Contact />
+      <Footer />
+    </main>
+  );
 }
-
-export default Home
+export default Home;

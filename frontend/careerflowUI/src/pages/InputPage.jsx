@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import CountrySelector from "../components/CountrySelector";
 import skillsData from "../assets/skills.json";
 import { useNavigate } from "react-router-dom";
+import FullPageLoaders from "../components/FullPageLoaders";
 import axios from "axios";
 
 
@@ -41,21 +42,10 @@ const InputPage = () => {
   };
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
-        <div className="text-center">
-          {/* Spinner */}
-          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+      <FullPageLoaders message="generating your careerFlow..." />
 
-          {/* Text */}
-          <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
-            Generating your career flow...
-          </p>
-        </div>
-      </div>
     );
   }
-
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-6 p-6">
       {/* Skills input */}

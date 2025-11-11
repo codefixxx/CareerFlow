@@ -1,15 +1,21 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Sidebar1 from "./components/Sidebar1";
+import Footer from "./components/Footer";
 import Flow from "./pages/Flow";
 import Dashboard from "./pages/Dashboard";
 import InputPage from "./pages/InputPage";
+import {useState} from "react";
 
 export default function App() {
+  
   return (
+    
 
     <div className="flex flex-col min-h-screen no-scrollbar">
       {/* Navbar at the top */}
+      <Navbar />
 
       <div className="flex-1 min-h-screen">
         <Routes>

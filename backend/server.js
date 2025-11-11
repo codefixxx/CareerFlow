@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use(cors({
-  origin: "https://flowcareer.netlify.app", 
+  origin: ["https://flowcareer.netlify.app","http://localhost:5173" ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
