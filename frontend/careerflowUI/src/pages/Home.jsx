@@ -19,7 +19,7 @@ function Home() {
       <Pricing />
       <About />
       <Contact />
-      <Footer />
+      
     </main>
   );
 }

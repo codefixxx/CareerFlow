@@ -1,35 +1,54 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Sidebar1 from "./components/Sidebar1";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Home from "./pages/Home";
 import Flow from "./pages/Flow";
 import Dashboard from "./pages/Dashboard";
 import InputPage from "./pages/InputPage";
-import {useState} from "react";
 
 export default function App() {
-  
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    
+    <div
+      id="top"
+      className="min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans flex flex-col"
+      style={{
+        fontFamily: "'Inter', sans-serif",
+      }}
+    >
+      {/* Dark overlay for mobile menu */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black bg-opacity-50 transition-opacity md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        ></div>
+      )}
 
-    <div className="flex flex-col min-h-screen no-scrollbar">
-      {/* Navbar at the top */}
-      <Navbar />
+      {/* Sidebar */}
+      <Sidebar1
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
 
+      {/* Navbar */}
+      <Navbar onOpenMobileMenu={() => setIsMobileMenuOpen(true)} />
+
+      {/* Main Content */}
       <div className="flex-1 min-h-screen">
         <Routes>
-          <Route path="/input" element={<InputPage />} />
           <Route path="/" element={<Home />} />
           <Route path="/flow" element={<Flow />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/input" element={<InputPage />} />
         </Routes>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
-
-
-
-
   );
 }
 

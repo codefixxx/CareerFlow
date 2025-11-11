@@ -4,21 +4,19 @@ import { X } from 'lucide-react';
 
 
 function Sidebar1({ isOpen, onClose }) {
-  // In a real file, you would add:
-  // import { X } from 'lucide-react';
-  // import { scrollToSection } from '../../utils/helpers';
+
   
   return (
     <div
-      className={`fixed inset-y-0 right-0 z-50 w-64 transform bg-gray-800 text-gray-100 shadow-xl transition-transform duration-300 ease-in-out ${
+      className={`fixed inset-y-0 right-0 z-50 w-64 transform bg-white text-gray-900 shadow-xl transition-transform duration-300 ease-in-out dark:bg-gray-800 dark:text-gray-100 ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       } md:hidden`}
     >
-      <div className="flex items-center justify-between p-4 border-b border-gray-700">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-lg font-semibold">Menu</h2>
         <button
           onClick={onClose}
-          className="p-1 rounded-md hover:bg-gray-700"
+          className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
           aria-label="Close menu"
         >
           <X className="h-6 w-6" />
@@ -31,7 +29,7 @@ function Sidebar1({ isOpen, onClose }) {
             scrollToSection(e, 'features');
             onClose();
           }}
-          className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
+          className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           Features
         </a>
@@ -41,7 +39,7 @@ function Sidebar1({ isOpen, onClose }) {
             scrollToSection(e, 'pricing');
             onClose();
           }}
-          className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
+          className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           Pricing
         </a>
@@ -51,7 +49,7 @@ function Sidebar1({ isOpen, onClose }) {
             scrollToSection(e, 'about');
             onClose();
           }}
-          className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
+          className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           About
         </a>
@@ -61,14 +59,14 @@ function Sidebar1({ isOpen, onClose }) {
             scrollToSection(e, 'contact');
             onClose();
           }}
-          className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
+          className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           Contact
         </a>
-        <div className="pt-4 border-t border-gray-700 space-y-2">
+        <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
            <a
             href="#"
-            className="block w-full text-center px-4 py-2 rounded-md text-base font-medium text-gray-200 hover:bg-gray-700"
+            className="block w-full text-center px-4 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
           >
             Log In
           </a>
