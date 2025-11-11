@@ -31,9 +31,18 @@ export default function Sidebar({ selectedNode, onClose, country }) {
 
   return (
     <div
-      className="md:w-[28rem] sm:w-full bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 
-      dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 
-      p-6 border-l border-gray-300 dark:border-gray-700 shadow-2xl relative z-[9999] overflow-y-auto"
+      className="
+        md:w-[28rem] sm:w-full relative z-[9999] overflow-y-auto
+        p-6 border-l shadow-2xl transition-all duration-500 ease-in-out
+
+        /* Light Mode */
+        bg-gradient-to-br from-slate-50 via-white to-blue-50
+        text-slate-800 border-slate-300
+
+        /* Dark Mode */
+        dark:bg-gradient-to-br dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950
+        dark:text-slate-100 dark:border-slate-700
+      "
       onClick={(e) => e.stopPropagation()}
     >
       {/* Close Button */}
@@ -45,8 +54,9 @@ export default function Sidebar({ selectedNode, onClose, country }) {
       </button>
 
       {/* Header Section */}
-      <div className="flex flex-col flex-grow text-gray-900 dark:text-white mt-2">
+      <div className="flex flex-col flex-grow mt-2 relative z-10">
         <h2 className="text-2xl font-bold mb-2">{label}</h2>
+
         {description && (
           <p className="text-sm leading-relaxed mb-4 text-gray-700 dark:text-gray-300">
             {description}
@@ -55,7 +65,7 @@ export default function Sidebar({ selectedNode, onClose, country }) {
 
         {/* Skills Section */}
         {skills?.length > 0 && (
-          <div className="mb-6 bg-white/60 dark:bg-gray-800/60 rounded-2xl p-4 shadow-md backdrop-blur-sm transition-all hover:shadow-lg">
+          <div className="mb-6 bg-white/70 dark:bg-slate-800/70 rounded-2xl p-4 shadow-md backdrop-blur-sm transition-all hover:shadow-lg border border-slate-200 dark:border-slate-700">
             <div className="flex items-center mb-2">
               <Brain className="text-blue-600 dark:text-blue-400 mr-2" size={18} />
               <h3 className="font-semibold text-lg">Skills Required</h3>
@@ -73,7 +83,7 @@ export default function Sidebar({ selectedNode, onClose, country }) {
 
         {/* Trends Section */}
         {trends?.length > 0 && (
-          <div className="mb-6 bg-white/60 dark:bg-gray-800/60 rounded-2xl p-4 shadow-md backdrop-blur-sm transition-all hover:shadow-lg">
+          <div className="mb-6 bg-white/70 dark:bg-slate-800/70 rounded-2xl p-4 shadow-md backdrop-blur-sm transition-all hover:shadow-lg border border-slate-200 dark:border-slate-700">
             <div className="flex items-center mb-2">
               <TrendingUp className="text-green-600 dark:text-green-400 mr-2" size={18} />
               <h3 className="font-semibold text-lg">Future Trends</h3>
@@ -92,7 +102,7 @@ export default function Sidebar({ selectedNode, onClose, country }) {
 
       {/* CTA Button */}
       {isLayer1 && (
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center relative z-10">
           <p className="text-sm text-gray-800 dark:text-gray-300 mb-2">
             Click to view analytics
           </p>

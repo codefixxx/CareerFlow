@@ -22,7 +22,7 @@ const InputPage = () => {
     try {
       setLoading(true);
       const res = await axios.post(`${backendUrl}/api/prompt`, { skills, country });
-      console.log("Backend response:", res.data);
+      console.log("Success");
       setLoading(false);
 
       navigate("/flow", { state: { careerData: res.data.tree, country } });
