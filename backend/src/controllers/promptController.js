@@ -14,21 +14,25 @@ const model = new ChatGoogleGenerativeAI({
 
 export const runPrompt = async (req, res) => {
   try {
-    let { skills, country } = req.body;
+    let { skills} = req.body;
 
 
-    if (!Array.isArray(skills) || skills.length === 0 || !country) {
+    if (!Array.isArray(skills) || skills.length === 0) {
       return res.status(400).json({ error: "Skills (array) and country are required" });
     }
 
     // Normalize inputs
     skills = skills.map((s) => s.trim().toLowerCase()).sort();
-    country = country.trim();
     const skillsKey = skills.join(", ");
     //  Check cache
     const existing = await CareerPath.findOne({ skillsKey });
     if (existing) {
       console.log(" Returning cached response from MongoDB");
+      if (!req.user.careerPaths.includes(existing._id)) {
+      req.user.careerPaths.push(existing._id);
+      await req.user.save();
+    }
+
       return res.json({ success: true, id: existing._id, tree: existing.tree });
     }
 
@@ -72,8 +76,7 @@ const formattedPrompt = careerPrompt.format({ skills });
 const chain = careerPrompt.pipe(model).pipe(new StringOutputParser());
 
 const rawOutput = await chain.invoke({ 
-  skills: skills.join(", "), 
-  country 
+  skills: skills.join(", ")
 });
 // Clean Gemini output (remove markdown fences if present)
 const formattedOutput = rawOutput.trim().replace(/```json|```/g, "");
@@ -96,11 +99,13 @@ const formattedOutput = rawOutput.trim().replace(/```json|```/g, "");
       skillsKey,
       tree: jsonResponse,
     });
+    req.user.careerPaths.push(entry._id);
+    await req.user.save();
 
-    res.json({ success: true, id: entry._id, tree: jsonResponse });
+    return res.json({ success: true, id: entry._id, tree: jsonResponse });
   } catch (err) {
     console.error("Gemini Prompt Error:", err);
-    res.status(500).json({ error: "Failed to generate career path tree" });
+    return res.status(500).json({ error: "Failed to generate career path tree" });
   }
 };
 

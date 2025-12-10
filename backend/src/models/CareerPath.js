@@ -9,4 +9,4 @@ const careerPathSchema = new mongoose.Schema(
   { timestamps: true }
 );
 careerPathSchema.index({ skillsKey: 1 }, { unique: true });
-export default mongoose.model("CareerPath", careerPathSchema);
+export default mongoose.models.CareerPath||mongoose.model("CareerPath", careerPathSchema);

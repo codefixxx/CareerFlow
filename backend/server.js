@@ -5,12 +5,17 @@ import promptRoutes from "./src/routes/promptRoutes.js";
 import connectDB from "./src/config/db.js";
 import cors from "cors";
 import analyticsRoutes from "./src/routes/analyticsRoutes.js";
+import authRoutes from "./src/routes/authRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
+import cookieParser from "cookie-parser";
+
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 app.use(cors({
   origin: ["https://flowcareer.netlify.app","http://localhost:5173" ],
@@ -19,7 +24,9 @@ app.use(cors({
 }));
 // Routes
 app.use("/api/prompt", promptRoutes);
-app.use("/api/analytics", analyticsRoutes); // New analytics route
+app.use("/api/analytics", analyticsRoutes);
+app.use("/api/auth", authRoutes) 
+app.use("/api/user", userRoutes);
 app.get("/", (req, res) => {
   res.send("CareerFlow Backend is running!");
 });

@@ -13,4 +13,4 @@ const AnalyticsSchema = new mongoose.Schema(
 // Optional: enforce uniqueness for job+country+year
 AnalyticsSchema.index({ job_name: 1, country: 1, year: 1 }, { unique: true });
 
-export default mongoose.model("Analytics", AnalyticsSchema);
+export default mongoose.models.Analytics||mongoose.model("Analytics", AnalyticsSchema);

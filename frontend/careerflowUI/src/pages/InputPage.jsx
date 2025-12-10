@@ -20,9 +20,13 @@ const InputPage = () => {
     console.log("Sending data:", { skills, country });
 
     try {
+      const start = Date.now();
       setLoading(true);
       const res = await axios.post(`${backendUrl}/api/prompt`, { skills, country });
       console.log("Success");
+      console.log("Response data:", res);
+      
+      console.log("Request time:", Date.now() - start, "ms");
       setLoading(false);
 
       navigate("/flow", { state: { careerData: res.data.tree, country } });

@@ -52,6 +52,7 @@ and if specific information is not available online, please provide a reasonable
 NOTE : return the salary figure in terms of the currency of the input country.
 NOTE : give all the average salary as pure number specific to the given country, without assigning currency symbol.
 NOTE : all the percentage values should be without "%" symbol.
+NOTE: for certification URLs, provide direct links to the official certification pages. It should be working link. prefer udemy, coursera, edx, official sites, University sites, NPTEL, Youtbube links.
 
 Required Inputs:
 - Job Name: {job_name}
