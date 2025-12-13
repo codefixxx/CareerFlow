@@ -22,7 +22,7 @@ const InputPage = () => {
     try {
       const start = Date.now();
       setLoading(true);
-      const res = await axios.post(`${backendUrl}/api/prompt`, { skills, country });
+      const res = await axios.post(`${backendUrl}/api/prompt`, { skills, country }, {withCredentials:true});
       console.log("Success");
       console.log("Response data:", res);
       

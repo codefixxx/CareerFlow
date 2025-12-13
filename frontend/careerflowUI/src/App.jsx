@@ -7,6 +7,11 @@ import Home from "./pages/Home";
 import Flow from "./pages/Flow";
 import Dashboard from "./pages/Dashboard";
 import InputPage from "./pages/InputPage";
+import Login  from "./pages/Login";
+import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import OtpVerification from "./pages/OtpVerification";
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,6 +48,11 @@ export default function App() {
           <Route path="/flow" element={<Flow />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/input" element={<InputPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/forgot-password" element={<ForgotPassword/>} />
+          <Route path="/reset-password" element={<ResetPassword/>} />
+          <Route path="/otp-verification" element={<OtpVerification/>} />
         </Routes>
       </div>
 

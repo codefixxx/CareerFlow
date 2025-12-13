@@ -1,11 +1,12 @@
 import React from 'react'
-import { scrollToSection } from '../utils/helpers'
-import { X } from 'lucide-react';
 
+import { X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function Sidebar1({ isOpen, onClose }) {
 
-  
+  const navigate = useNavigate();
+
   return (
     <div
       className={`fixed inset-y-0 right-0 z-50 w-64 transform bg-white text-gray-900 shadow-xl transition-transform duration-300 ease-in-out dark:bg-gray-800 dark:text-gray-100 ${
@@ -22,6 +23,7 @@ function Sidebar1({ isOpen, onClose }) {
           <X className="h-6 w-6" />
         </button>
       </div>
+
       <nav className="flex flex-col p-4 space-y-2">
         <a
           href="#features"
@@ -33,7 +35,8 @@ function Sidebar1({ isOpen, onClose }) {
         >
           Features
         </a>
-         <a
+
+        <a
           href="#pricing"
           onClick={(e) => {
             scrollToSection(e, 'pricing');
@@ -43,6 +46,7 @@ function Sidebar1({ isOpen, onClose }) {
         >
           Pricing
         </a>
+
         <a
           href="#about"
           onClick={(e) => {
@@ -53,6 +57,7 @@ function Sidebar1({ isOpen, onClose }) {
         >
           About
         </a>
+
         <a
           href="#contact"
           onClick={(e) => {
@@ -63,22 +68,35 @@ function Sidebar1({ isOpen, onClose }) {
         >
           Contact
         </a>
+
         <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
-           <a
-            href="#"
+
+          {/* Login Button */}
+          <button
+            onClick={() => {
+              navigate("/login");
+              onClose();
+            }}
             className="block w-full text-center px-4 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
           >
             Log In
-          </a>
-          <a
-            href="#"
+          </button>
+
+          {/* Sign Up Button */}
+          <button
+            onClick={() => {
+              navigate("/signup");
+              onClose();
+            }}
             className="block w-full text-center px-4 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
           >
             Sign Up
-          </a>
+          </button>
+
         </div>
       </nav>
     </div>
   );
 }
+
 export default Sidebar1;
