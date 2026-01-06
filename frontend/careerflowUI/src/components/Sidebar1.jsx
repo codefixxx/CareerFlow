@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { scrollToSection } from '../utils/helpers';
 import { X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 

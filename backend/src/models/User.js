@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema(
     isVerified: { type: Boolean, default: false },
     resetOtp: { type: String, default: "" },
     resetOtpExpireAt: { type: Number, default: 0 },
+    resetPasswordToken: { type: String, default: "" },
+    resetPasswordTokenExpireAt: { type: Number, default: 0 },
     skills: { type: [String], default: [] },
     country: { type: String, default: "" },
 

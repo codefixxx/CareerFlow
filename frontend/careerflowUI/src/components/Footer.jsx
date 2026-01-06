@@ -1,5 +1,5 @@
- import { Instagram, Github,  } from 'lucide-react';
- import { scrollToSection } from '../utils/helpers';
+import { Instagram, Github, } from 'lucide-react';
+import { scrollToSection } from '../utils/helpers';
 
 function Footer() {
   return (
@@ -22,11 +22,6 @@ function Footer() {
                   Pricing
                 </a>
               </li>
-              <li>
-                <a href="#" className="text-base hover:text-gray-900 dark:hover:text-white">
-                  Changelog
-                </a>
-              </li>
             </ul>
           </div>
           {/* Column 2: Company */}
@@ -38,16 +33,6 @@ function Footer() {
               <li>
                 <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="text-base hover:text-gray-900 dark:hover:text-white">
                   About
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-base hover:text-gray-900 dark:hover:text-white">
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-base hover:text-gray-900 dark:hover:text-white">
-                  Blog
                 </a>
               </li>
               <li>
@@ -69,12 +54,7 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-base hover:text-gray-900 dark:hover:text-white">
-                  Community
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-base hover:text-gray-900 dark:hover:text-white">
+                <a href="#video-demo" className="text-base hover:text-gray-900 dark:hover:text-white">
                   Guides
                 </a>
               </li>
@@ -102,11 +82,13 @@ function Footer() {
         {/* Bottom Footer */}
         <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8 md:flex md:items-center md:justify-between">
           <div className="flex space-x-6 md:order-2">
-            <a href="https://www.instagram.com/general_munchk1n_man/" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+            <a href="https://www.instagram.com/general_munchk1n_man/" target="_blank"
+              rel="noopener noreferrer" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
               <span className="sr-only">Instagram</span>
               <Instagram className="h-6 w-6" />
             </a>
-            <a href="https://github.com/codefixxx" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+            <a href="https://github.com/codefixxx" target="_blank"
+              rel="noopener noreferrer" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
               <span className="sr-only">GitHub</span>
               <Github className="h-6 w-6" />
             </a>

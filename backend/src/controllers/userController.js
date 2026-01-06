@@ -1,8 +1,8 @@
 import User from "../models/User.js";
-export const getUserProfile=async(req,res)=>{
+export const getUserProfile = (req,res)=>{
     
     try{
-        const user = await req.user;
+        const user =  req.user;
 
         if(!user){
             return res.status(404).json({success:false, message:"User not found"});
