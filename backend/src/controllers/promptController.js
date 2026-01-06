@@ -37,40 +37,62 @@ export const runPrompt = async (req, res) => {
     }
 
     //  Build prompt
-    const careerPrompt = new PromptTemplate({
-      inputVariables: ["skills"],
-      template: `
-You are an AI career advisor. The user will provide their list of skills.  
-Your task is to generate a **career path tree** in JSON format.  
+const careerPrompt = new PromptTemplate({
+  inputVariables: ["skills"],
+  template: `
+You are an AI career advisor. The user will provide their list of skills.
+Your task is to generate a **career path tree** in JSON format.
 
 🔑 Rules for JSON structure:
 - Think of it as a **tree-like hierarchy**:
-  - The nodes are main career paths.
-  - Each career path may have **sub-career paths**, going deeper until reaching a **specialization (leaf node)**.
-  - **extra_skills_needed** should be in detail to let the user know further skills needed for that job role.
-  - A specialization is the deepest node and does not contain further sub-career paths.
+  - The nodes are main career paths.
+  - Each career path may have **sub-career paths**, going deeper until reaching a **specialization (leaf node)**.
+  - **extra_skills_needed** should list concrete, domain-specific capabilities required for that role.
+  - A specialization is the deepest node and does not contain further sub-career paths.
 - At each level, include at most **10 sub-career paths**, selecting the most popular and relevant ones.
 - Each node in the tree must have this schema:
 
 {{
-  "name": "Career Path or Specialization",
-  "description": "Short description of this path",
-  "future_trends": ["trend1", "trend2"],
-  "extra_skills_needed": ["skill1", "skill2"],
-  "sub_career_paths": [ ... recursive children, or empty list if specialization ... ]
+  "name": "Career Path or Specialization",
+  "description": "Short description of this path",
+  "future_trends": ["trend1", "trend2"],
+  "extra_skills_needed": ["skill1", "skill2"],
+  "sub_career_paths": [ ... recursive children, or empty list if specialization ... ]
 }}
 
+🎯 Relevance rules (CRITICAL):
+- Generate ONLY career paths that are **strongly relevant** to the user’s provided skills.
+- Do NOT include career paths that require a complete skill reset or are weakly related.
+- Prefer career paths that:
+  - Naturally extend the user’s existing skills, OR
+  - Require a reasonable, learnable skill transition.
+- If a career path is not a logical progression from the user’s skills, EXCLUDE it.
+
+🔒 Strict constraints (MANDATORY):
+- "extra_skills_needed" MUST contain ONLY:
+  - Tools
+  - Techniques
+  - Methods
+  - Certifications
+  - Equipment
+  - Domain-specific competencies
+- NO explanations, NO sentences, NO personality traits.
+- Each item must be **1–3 words max**.
+- Max **15 items** in "extra_skills_needed".
+- The items must be appropriate to the career domain (not necessarily technical).
+
 ⚠️ Important:
-- Return **only valid JSON** following this schema.  
-- Do not include any text outside of JSON. 
+- Return **only valid JSON** following this schema.
+- Do not include any text outside of JSON.
 - First node (root) should be the title node with only **name** and **sub_career_paths** as fields.
- 
-Now, generate the career path tree for this user:  
 
-Skills: {skills}  
+Now, generate the career path tree for this user:
 
+Skills: {skills}
 `,
-    });
+});
+
+
 const formattedPrompt = careerPrompt.format({ skills });
 
 const chain = careerPrompt.pipe(model).pipe(new StringOutputParser());
