@@ -99,23 +99,6 @@ export default function Sidebar({ selectedNode, onClose, country }) {
           </div>
         )}
       </div>
-
-      {/* CTA Button */}
-      {isLayer1 && (
-        <div className="mt-6 text-center relative z-10">
-          <p className="text-sm text-gray-800 dark:text-gray-300 mb-2">
-            Click to view analytics
-          </p>
-          <button
-            onClick={handleClick}
-            className="px-6 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 
-            text-white font-semibold shadow-md hover:shadow-lg 
-            transition-all duration-300 active:scale-95"
-          >
-            View Analytics
-          </button>
-        </div>
-      )}
     </div>
   );
 }

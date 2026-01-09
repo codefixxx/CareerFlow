@@ -1,12 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import LogoIcon from "../components/LogoIcon";
+import { AppContext } from "../context/AppContext.jsx";
 
 export default function Login() {
   const navigate = useNavigate();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const {setIsLoggedin, getUserData} = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -35,7 +37,10 @@ export default function Login() {
       );
 
       toast.success(res.data?.message || "Login successful");
+      setIsLoggedin(true);
+      await getUserData();
       navigate("/input");
+
     } catch (err) {
       const errorCode = err.response?.data?.code;
       const errorMessage = err.response?.data?.message;

@@ -1,35 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Input from "../components/Input";
 import CountrySelector from "../components/CountrySelector";
 import skillsData from "../assets/skills.json";
 import { useNavigate } from "react-router-dom";
 import FullPageLoaders from "../components/FullPageLoaders";
 import axios from "axios";
+import { AppContext } from "../context/AppContext.jsx";
 
 
 const InputPage = () => {
   const [skills, setSkills] = useState([]);
-  const [country, setCountry] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
+  const {userData} = useContext(AppContext);
 
   const handleFinalSubmit = async () => {
 
-    console.log("Sending data:", { skills, country });
+    console.log("Sending data:", { skills });
 
     try {
       const start = Date.now();
       setLoading(true);
-      const res = await axios.post(`${backendUrl}/api/prompt`, { skills, country }, {withCredentials:true});
+      const res = await axios.post(`${backendUrl}/api/prompt`, { skills}, {withCredentials:true});
       console.log("Success");
       console.log("Response data:", res);
       
       console.log("Request time:", Date.now() - start, "ms");
       setLoading(false);
 
-      navigate("/flow", { state: { careerData: res.data.tree, country } });
+      navigate("/flow", { state: { careerData: res.data.tree} });
     } catch (err) {
       setLoading(false);
       if (err.response) {
@@ -53,23 +53,19 @@ const InputPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-6 p-6">
       {/* Skills input */}
+      <h1>Hey {userData? userData.name: "user"}</h1>
       <Input
         skillsList={skillsData}
         value={skills}
         onChange={(selectedSkills) => setSkills(selectedSkills)}
       />
 
-      {/* Country selector */}
-      <CountrySelector
-        value={country}
-        onChange={(selectedCountry) => setCountry(selectedCountry)}
-      />
 
       {/* Final single submit */}
       <button
         onClick={handleFinalSubmit}
-        disabled={!skills.length || !country}
-        className={`px-6 py-3 rounded-lg shadow-md transition ${!skills.length || !country
+        disabled={!skills.length }
+        className={`px-6 py-3 rounded-lg shadow-md transition ${!skills.length
           ? "bg-gray-400 cursor-not-allowed"
           : "bg-green-600 hover:bg-green-700 text-white"
           }`}

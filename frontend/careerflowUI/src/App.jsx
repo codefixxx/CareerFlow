@@ -5,7 +5,6 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Flow from "./pages/Flow";
-import Dashboard from "./pages/Dashboard";
 import InputPage from "./pages/InputPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -63,7 +62,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/flow" element={<Flow />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/input" element={<InputPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

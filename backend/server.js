@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import promptRoutes from "./src/routes/promptRoutes.js";
 import connectDB from "./src/config/db.js";
 import cors from "cors";
-import analyticsRoutes from "./src/routes/analyticsRoutes.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import cookieParser from "cookie-parser";
@@ -23,7 +22,6 @@ app.use(cors({
 }));
 // Routes
 app.use("/api/prompt", promptRoutes);
-app.use("/api/analytics", analyticsRoutes);
 app.use("/api/auth", authRoutes) 
 app.use("/api/user", userRoutes);
 app.get("/", (req, res) => {

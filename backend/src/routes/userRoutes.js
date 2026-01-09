@@ -3,6 +3,6 @@ const router = express.Router();
 import { getUserProfile } from "../controllers/userController.js";
 import userAuth from "../middleware/userAuth.js";
 
-router.post("/profile", userAuth, getUserProfile);
+router.get("/data", userAuth, getUserProfile);
 
 export default router;
