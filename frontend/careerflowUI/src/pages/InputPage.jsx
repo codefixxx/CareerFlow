@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import Input from "../components/Input";
-import CountrySelector from "../components/CountrySelector";
 import skillsData from "../assets/skills.json";
 import { useNavigate } from "react-router-dom";
 import FullPageLoaders from "../components/FullPageLoaders";
@@ -14,7 +13,6 @@ const InputPage = () => {
   const navigate = useNavigate();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const {userData} = useContext(AppContext);
-
   const handleFinalSubmit = async () => {
 
     console.log("Sending data:", { skills });
@@ -24,8 +22,6 @@ const InputPage = () => {
       setLoading(true);
       const res = await axios.post(`${backendUrl}/api/prompt`, { skills}, {withCredentials:true});
       console.log("Success");
-      console.log("Response data:", res);
-      
       console.log("Request time:", Date.now() - start, "ms");
       setLoading(false);
 

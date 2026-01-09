@@ -13,14 +13,19 @@ import ResetPassword from "./pages/ResetPassword";
 import OtpVerification from "./pages/OtpVerification";
 import { Toaster } from "react-hot-toast";
 import ProtectedResetRoute from "./utils/ProtectedResetRoute";
+import { useContext, useEffect } from "react";
+import { AppContext } from "./context/AppContext.jsx";
+import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const showNavbarRoutes = ["/", "/input", "/flow", "/dashboard"];
   const shouldShowNavbar = showNavbarRoutes.includes(location.pathname);
-
-
+  const { getUserData } = useContext(AppContext);
+  useEffect(() => {
+    getUserData();
+  }, [getUserData]);
   return (
     <div
       id="top"
@@ -61,8 +66,22 @@ export default function App() {
       <div className="flex-1 min-h-screen">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/flow" element={<Flow />} />
-          <Route path="/input" element={<InputPage />} />
+          <Route
+            path="/input"
+            element={
+              <ProtectedRoute>
+                <InputPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/flow"
+            element={
+              <ProtectedRoute>
+                <Flow />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -1,88 +1,94 @@
-import React, { useState } from "react";
-import { X } from "lucide-react";
+import React from "react";
+import AsyncSelect from "react-select/async";
 
 const Input = ({ skillsList, value, onChange }) => {
-  const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  // Convert selected values to React Select format
+  const selectedOptions = value.map((skill) => ({ value: skill, label: skill }));
 
-  // handle typing
-  const handleChange = (e) => {
-    const val = e.target.value;
-    setQuery(val);
-
-    if (val.length > 0) {
-      const filtered = skillsList
-        .filter(
-          (skill) =>
-            skill.toLowerCase().startsWith(val.toLowerCase()) &&
-            !value.includes(skill)
-        )
-        .slice(0, 10); // limit suggestions
-      setSuggestions(filtered);
-    } else {
-      setSuggestions([]);
+  // Load options dynamically (filter as you type)
+  const loadOptions = (inputValue, callback) => {
+    if (!inputValue) {
+      callback([]);
+      return;
     }
+
+    const filtered = skillsList
+      .filter(
+        (skill) =>
+          skill.toLowerCase().startsWith(inputValue.toLowerCase()) &&
+          !value.includes(skill)
+      )
+      .slice(0, 10) // limit suggestions like your original component
+      .map((skill) => ({ value: skill, label: skill }));
+
+    callback(filtered);
   };
 
-  // add skill
-  const addSkill = (skill) => {
-    const updated = [...value, skill];
+  // Handle selection changes
+  const handleChange = (selected) => {
+    const updated = selected ? selected.map((item) => item.value) : [];
     onChange(updated);
-    setQuery("");
-    setSuggestions([]);
   };
 
-  // remove skill
-  const removeSkill = (skill) => {
-    const updated = value.filter((s) => s !== skill);
-    onChange(updated);
+  // Custom styles to match Tailwind theme
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      borderRadius: "0.5rem",
+      borderColor: "#d1d5db", // gray-300
+      minHeight: "2.5rem",
+      padding: "0.125rem",
+      boxShadow: "none",
+      "&:hover": { borderColor: "#3b82f6" }, // blue-500
+    }),
+    multiValue: (provided) => ({
+      ...provided,
+      backgroundColor: "#dbeafe", // blue-100
+      borderRadius: "9999px",
+      padding: "0 0.25rem",
+    }),
+    multiValueLabel: (provided) => ({
+      ...provided,
+      color: "#1d4ed8", // blue-700
+      fontSize: "0.875rem",
+    }),
+    multiValueRemove: (provided) => ({
+      ...provided,
+      color: "#1d4ed8",
+      cursor: "pointer",
+      "&:hover": { backgroundColor: "#bfdbfe", color: "#1e40af" },
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? "#f3f4f6" : "#ffffff",
+      color: "#111827",
+      cursor: "pointer",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      borderRadius: "0.5rem",
+      boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+      maxHeight: "10rem",
+    }),
   };
 
   return (
     <div className="w-full max-w-lg mx-auto p-4">
-      {/* selected skill tags */}
-      <div className="flex flex-wrap gap-2 mb-2">
-        {value.map((skill, i) => (
-          <span
-            key={i}
-            className="flex items-center bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm"
-          >
-            {skill}
-            <X
-              size={16}
-              className="ml-1 cursor-pointer"
-              onClick={() => removeSkill(skill)}
-            />
-          </span>
-        ))}
-      </div>
-
-      {/* input box */}
-      <input
-        type="text"
-        className="w-full border p-2 rounded"
-        value={query}
+      <AsyncSelect
+        cacheOptions
+        defaultOptions={[]}
+        loadOptions={loadOptions}
+        value={selectedOptions}
         onChange={handleChange}
+        isMulti
         placeholder="Type a skill..."
+        styles={customStyles}
+        noOptionsMessage={() => "No matching skills"}
       />
-
-      {/* suggestions */}
-      {suggestions.length > 0 && (
-        <ul className="border mt-1 max-h-40 overflow-y-auto rounded shadow">
-          {suggestions.map((skill, i) => (
-            <li
-              key={i}
-              onClick={() => addSkill(skill)}
-              className="p-2 cursor-pointer hover:bg-gray-100"
-            >
-              {skill}
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 };
 
 export default Input;
+
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import LogoIcon from "../components/LogoIcon";
@@ -8,7 +8,13 @@ import { AppContext } from "../context/AppContext.jsx";
 export default function Login() {
   const navigate = useNavigate();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const {setIsLoggedin, getUserData} = useContext(AppContext);
+  const {setIsLoggedin, getUserData, isLoggedin} = useContext(AppContext);
+  useEffect(() => {
+    if (isLoggedin) {
+      // Already logged in → redirect to input page
+      navigate("/input", { replace: true });
+    }
+  }, [isLoggedin]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -35,10 +41,9 @@ export default function Login() {
         formData,
         { withCredentials: true }
       );
-
-      toast.success(res.data?.message || "Login successful");
       setIsLoggedin(true);
       await getUserData();
+      toast.success(res.data?.message || "Login successful");
       navigate("/input");
 
     } catch (err) {
