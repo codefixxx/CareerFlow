@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import Input from "../components/Input";
 import skillsData from "../assets/skills.json";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,13 @@ const InputPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const {userData} = useContext(AppContext);
+  const { userData } = useContext(AppContext);
+  const searchRef = useRef(null);
+  useEffect(() => {
+    if (searchRef.current) {
+      searchRef.current.focus();
+    }
+  }, []);
   const handleFinalSubmit = async () => {
 
     console.log("Sending data:", { skills });
@@ -20,14 +26,14 @@ const InputPage = () => {
     try {
       const start = Date.now();
       setLoading(true);
-      const res = await axios.post(`${backendUrl}/api/prompt`, { skills}, {withCredentials:true});
+      const res = await axios.post(`${backendUrl}/api/prompt`, { skills }, { withCredentials: true });
       console.log("Success");
       console.log("Request time:", Date.now() - start, "ms");
-      setLoading(false);
 
-      navigate("/flow", { state: { careerData: res.data.tree} });
+
+      navigate("/flow", { state: { careerData: res.data.tree } });
     } catch (err) {
-      setLoading(false);
+
       if (err.response) {
         // Server responded but with error (4xx, 5xx)
         console.error("Server error:", err.response.status, err.response.data);
@@ -39,7 +45,10 @@ const InputPage = () => {
         console.error("Axios error:", err.message);
       }
     }
-  };
+    finally {
+      setLoading(false);
+    };
+  }
   if (loading) {
     return (
       <FullPageLoaders message="generating your careerFlow..." />
@@ -49,8 +58,10 @@ const InputPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-6 p-6">
       {/* Skills input */}
-      <h1>Hey {userData? userData.name: "user"}</h1>
+      <h1>Hey {userData ? userData.name : "user"}</h1>
       <Input
+        placeholder="Select your skills"
+        ref={searchRef}
         skillsList={skillsData}
         value={skills}
         onChange={(selectedSkills) => setSkills(selectedSkills)}
@@ -60,7 +71,7 @@ const InputPage = () => {
       {/* Final single submit */}
       <button
         onClick={handleFinalSubmit}
-        disabled={!skills.length }
+        disabled={!skills.length}
         className={`px-6 py-3 rounded-lg shadow-md transition ${!skills.length
           ? "bg-gray-400 cursor-not-allowed"
           : "bg-green-600 hover:bg-green-700 text-white"

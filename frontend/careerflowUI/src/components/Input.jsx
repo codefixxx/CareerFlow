@@ -1,7 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import AsyncSelect from "react-select/async";
 
-const Input = ({ skillsList, value, onChange }) => {
+const Input = forwardRef(({ skillsList, value, onChange }, ref) => {
   // Convert selected values to React Select format
   const selectedOptions = value.map((skill) => ({ value: skill, label: skill }));
 
@@ -76,6 +76,7 @@ const Input = ({ skillsList, value, onChange }) => {
     <div className="w-full max-w-lg mx-auto p-4">
       <AsyncSelect
         cacheOptions
+        ref={ref}
         defaultOptions={[]}
         loadOptions={loadOptions}
         value={selectedOptions}
@@ -87,7 +88,7 @@ const Input = ({ skillsList, value, onChange }) => {
       />
     </div>
   );
-};
+});
 
 export default Input;
 
