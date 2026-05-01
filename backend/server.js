@@ -7,6 +7,7 @@ import cors from "cors";
 import authRoutes from "./src/routes/authRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import cookieParser from "cookie-parser";
+import careerRoutes from "./src/routes/careeRoutes.js";
 
 
 dotenv.config();
@@ -27,6 +28,7 @@ app.use("/api/user", userRoutes);
 app.get("/", (req, res) => {
   res.send("CareerFlow Backend is running!");
 });
+app.use("/api/careerpaths", careerRoutes);
 // MongoDB connection
   connectDB().then(() => {
 

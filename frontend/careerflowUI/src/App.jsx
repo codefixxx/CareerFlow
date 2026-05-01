@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar1 from "./components/Sidebar1";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Flow from "./pages/Flow";
 import InputPage from "./pages/InputPage";
@@ -16,6 +15,7 @@ import ProtectedResetRoute from "./utils/ProtectedResetRoute";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./context/AppContext.jsx";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
+import AuthRedirectRoute from "./utils/AuthRedirectRoute.jsx";
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -25,7 +25,7 @@ export default function App() {
   const { getUserData } = useContext(AppContext);
   useEffect(() => {
     getUserData();
-  }, [getUserData]);
+  }, []);
   return (
     <div
       id="top"
@@ -82,9 +82,32 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/login"
+            element={
+              <AuthRedirectRoute>
+                <Login />
+              </AuthRedirectRoute>
+            }
+          />
+
+          <Route
+            path="/signup"
+            element={
+              <AuthRedirectRoute>
+                <Signup />
+              </AuthRedirectRoute>
+            }
+          />
+
+          <Route
+            path="/forgot-password"
+            element={
+              <AuthRedirectRoute>
+                <ForgotPassword />
+              </AuthRedirectRoute>
+            }
+          />
           <Route
             path="/reset-password"
             element={
@@ -96,10 +119,6 @@ export default function App() {
           <Route path="/otp-verification" element={<OtpVerification />} />
         </Routes>
       </div>
-
-
     </div>
   );
 }
-
-

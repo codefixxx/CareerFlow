@@ -14,13 +14,13 @@ import CustomEdge from "./CustomEdges";
 const nodeTypes = { custom: MyNode };
 const edgeTypes = { custom: CustomEdge };
 
-function CareerFlowInner({ careerData, onNodeSelect, onCanvasClick }) {
+function CareerFlowInner({ careerTree, onNodeSelect, onCanvasClick }) {
   const { fitView } = useReactFlow();
 
-  if (!careerData) return <div>No data available</div>;
+  if (!careerTree) return <div>No data available</div>;
 
   const { nodes: initialNodes, edges: initialEdges } = transformCareerTree([
-    careerData,
+    careerTree,
   ]);
 
   const [nodes, setNodes] = useState(initialNodes);

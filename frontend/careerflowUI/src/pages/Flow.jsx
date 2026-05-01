@@ -8,7 +8,6 @@ export default function Flow() {
   const [selectedNode, setSelectedNode] = useState(null);
   const location = useLocation();
   const careerData = location.state?.careerData;
-  const country = location.state?.country;
 
   const handleNodeSelect = (node, nodes) => {
     // Hide sidebar if root node (parentId=null)
@@ -36,7 +35,7 @@ export default function Flow() {
 
       >
         <CareerFlow
-          careerData={careerData}
+          careerTree={careerData.tree}
           onNodeSelect={handleNodeSelect}
           onCanvasClick={handleCanvasClick}
         />
@@ -44,7 +43,7 @@ export default function Flow() {
 
       {/* Render Sidebar only if a valid node is selected */}
       {selectedNode && (
-        <Sidebar selectedNode={selectedNode} onClose={() => setSelectedNode(null)} country={country} />
+        <Sidebar selectedNode={selectedNode} onClose={() => setSelectedNode(null)} />
       )}
     </div>
   );

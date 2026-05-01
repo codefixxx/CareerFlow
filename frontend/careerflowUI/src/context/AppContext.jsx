@@ -6,7 +6,6 @@ export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
     const [isLoggedin, setIsLoggedin] = useState(false);
     const [userData, setUserData] = useState(null);
     const [authLoading, setAuthLoading] = useState(true);
@@ -56,7 +55,7 @@ export const AppContextProvider = ({ children }) => {
         }
     };
 
-    // 🔑 Check auth ONCE on app load
+    //  Check auth ONCE on app load
 
 
     const value = {
